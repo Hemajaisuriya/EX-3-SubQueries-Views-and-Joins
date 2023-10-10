@@ -67,47 +67,60 @@ INSERT INTO DEPT (DEPTNO, DNAME, LOC) VALUES (40, 'OPERATIONS', 'BOSTON');
 
 ### Q1) List the name of the employees whose salary is greater than that of employee with empno 7566.
 
-
 ### QUERY:
-
-
+```sql
+ SELECT ename FROM emp WHERE sal > (SELECT sal FROM emp WHERE empno = 7566);
+```
 ### OUTPUT:
+![image](https://github.com/DHARINIPV/EX-3-SubQueries-Views-and-Joins/assets/119400845/4560384a-ac29-415a-b5d9-99771709e2cc)
 
 ### Q2) List the ename,job,sal of the employee who get minimum salary in the company.
 
 ### QUERY:
-
-
+```sql
+SELECT ename,job,sal FROM emp WHERE sal = (SELECT MIN(sal) FROM emp);
+```
 ### OUTPUT:
+![image](https://github.com/DHARINIPV/EX-3-SubQueries-Views-and-Joins/assets/119400845/39f53171-dfa4-4c44-8e38-4ce1e7ac75c9)
 
 ### Q3) List ename, job of the employees who work in deptno 10 and his/her job is any one of the job in the department ‘SALES’.
 
 ### QUERY:
-
-
+```sql
+ SELECT ename,job FROM emp WHERE deptno = 10 AND job IN (SELECT job FROM emp WHERE job = 'sales');
+```
 ### OUTPUT:
-
+![image](https://github.com/DHARINIPV/EX-3-SubQueries-Views-and-Joins/assets/119400845/43b21d8a-6ea0-4eac-9c7c-1c6fd79cb307)
 
 ### Q4) Create a view empv5 (for the table emp) that contains empno, ename, job of the employees who work in dept 10.
 
 ### QUERY:
-
-
+```sql
+CREATE VIEW empv5 AS SELECT empno,ename,job FROM emp WHERE deptno = 10;
+```
 ### OUTPUT:
+![image](https://github.com/DHARINIPV/EX-3-SubQueries-Views-and-Joins/assets/119400845/238e8c54-eac2-4518-b1b4-426dacfaa99e)
 
 ### Q5) Create a view with column aliases empv30 that contains empno, ename, sal of the employees who work in dept 30. Also display the contents of the view.
 
 ### QUERY:
-
-
+```sql
+CREATE VIEW empv30 AS SELECT empno,ename,sal FROM emp WHERE deptno = 30;
+SELECT * FROM empv30;
+```
 ### OUTPUT:
+![image](https://github.com/DHARINIPV/EX-3-SubQueries-Views-and-Joins/assets/119400845/094098c7-7c9c-450d-a860-ab4db15f0cd2)
 
 ### Q6) Update the view empv5 by increasing 10% salary of the employees who work as ‘CLERK’. Also confirm the modifications in emp table
 
 ### QUERY:
-
-
+```sql
+drop view empv5;
+UPDATE emp SET sal=sal+(sal*0.10) WHERE job='CLERK';
+CREATE VIEW empv5 AS SELECT empno,ename,sal,job FROM emp WHERE deptno = 10;
+```
 ### OUTPUT:
+![image](https://github.com/DHARINIPV/EX-3-SubQueries-Views-and-Joins/assets/119400845/f6ca0b53-b077-45f2-bb25-59f7156da951)
 
 ## Create a Customer1 Table
 ```sql
@@ -140,28 +153,43 @@ INSERT INTO Salesman1 (salesman_id, name, city, commission) VALUES(5003, 'Lauson
 ### Q7) Write a SQL query to find the salesperson and customer who reside in the same city. Return Salesman, cust_name and city.
 
 ### QUERY:
-
-
+```sql
+ SELECT s.name AS "Salesman", c.cust_name, s.city FROM Salesman1 s, Customer1 c WHERE s.city=c.city;
+```
 ### OUTPUT:
+![image](https://github.com/DHARINIPV/EX-3-SubQueries-Views-and-Joins/assets/119400845/9da9720d-2be3-4c60-9bba-465b96cad0dd)
 
 ### Q8) Write a SQL query to find salespeople who received commissions of more than 13 percent from the company. Return Customer Name, customer city, Salesman, commission.
 
-
 ### QUERY:
-
-
+```sql
+SELECT c.cust_name AS "Customer name", c.city AS "Customer city", s.name AS "Salesman", s.commission FROM Salesman1 s INNER JOIN Customer1 c ON s.city=
+c.city WHERE s.commission > 0.13;
+```
 ### OUTPUT:
+![image](https://github.com/DHARINIPV/EX-3-SubQueries-Views-and-Joins/assets/119400845/cf8c2b0e-7c75-4dd9-8537-dd59352ebe22)
 
 ### Q9) Perform Natural join on both tables
 
 ### QUERY:
-
-
+```sql
+SELECT * FROM Salesman1 s NATURAL JOIN Customer1 c;
+```
 ### OUTPUT:
+![image](https://github.com/DHARINIPV/EX-3-SubQueries-Views-and-Joins/assets/119400845/d25a3792-e6a5-4106-af34-ce0558e414a5)
 
 ### Q10) Perform Left and right join on both tables
 
 ### QUERY:
+```sql
+SELECT s.salesman_id,s.name,s.city,s.commission,c.cust_name,c.grade FROM Salesman1 s LEFT JOIN Customer1 c ON s.salesman_id=c.salesman_id;
 
-
+SELECT s.salesman_id,s.name,s.city,s.commission,c.cust_name,c.grade FROM Salesman1 s RIGHT JOIN Customer1 c ON s.salesman_id=c.salesman_id;
+```
 ### OUTPUT:
+![image](https://github.com/DHARINIPV/EX-3-SubQueries-Views-and-Joins/assets/119400845/a78b463c-7853-4b76-a95f-761ae748c957)
+
+![image](https://github.com/DHARINIPV/EX-3-SubQueries-Views-and-Joins/assets/119400845/bff13825-e8e4-4aba-9901-d76db9f13b0d)
+
+### RESULT:
+To create a database and implementation of views,subqueries and joins is executed successfully.
